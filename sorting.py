@@ -28,7 +28,6 @@ def quick_sort_recursive(arr, low, high):
         quick_sort_recursive(arr, pi + 1, high)
 
 def quick_sort(arr):
-    # Gọi hàm đệ quy từ index 0 đến cuối mảng
     quick_sort_recursive(arr, 0, len(arr) - 1)
 
 # ==========================================
@@ -47,19 +46,14 @@ def heapify(arr, n, i):
 
     if largest != i:
         arr[i], arr[largest] = arr[largest], arr[i]
-        # Gọi đệ quy heapify trên cây con bị ảnh hưởng
-        # (Độ sâu đệ quy của Heap chỉ là log(N), khoảng 20 lần với 1 triệu phần tử, rất an toàn)
         heapify(arr, n, largest)
 
 def heap_sort(arr):
     n = len(arr)
-    # Xây dựng max-heap
     for i in range(n // 2 - 1, -1, -1):
         heapify(arr, n, i)
-        
-    # Trích xuất từng phần tử ra khỏi heap
     for i in range(n - 1, 0, -1):
-        arr[i], arr[0] = arr[0], arr[i] # Đổi chỗ phần tử lớn nhất với phần tử cuối
+        arr[i], arr[0] = arr[0], arr[i]
         heapify(arr, i, 0)
 
 # ==========================================
@@ -68,19 +62,14 @@ def heap_sort(arr):
 def merge_sort(arr):
     if len(arr) > 1:
         mid = len(arr) // 2
-        
-        # Chia mảng thành 2 nửa
         L = arr[:mid].copy()
         R = arr[mid:].copy()
 
-        # Gọi đệ quy để sắp xếp 2 nửa
-        # (Độ sâu đệ quy cũng chỉ là log(N), rất an toàn)
         merge_sort(L)
         merge_sort(R)
 
         i = j = k = 0
 
-        # Gộp (merge) 2 nửa đã sắp xếp lại vào mảng gốc
         while i < len(L) and j < len(R):
             if L[i] <= R[j]:
                 arr[k] = L[i]
@@ -90,7 +79,6 @@ def merge_sort(arr):
                 j += 1
             k += 1
 
-        # Kiểm tra xem còn phần tử nào bị sót không
         while i < len(L):
             arr[k] = L[i]
             i += 1
